@@ -4,4 +4,5 @@ build_script:
   - cmd: mkdir build && cd build\
   - cmd: cmake -G"Visual Studio 14" -DCMAKE_BUILD_TYPE=Release ..\
   - cmd: cmake --build . --config Release -- /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-
+  - cmd: cd ..\bin\
+  - cmd: jpp-tests.exe

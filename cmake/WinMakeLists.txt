@@ -1,10 +1,10 @@
 # -*- CMake -*-
-project (ProjectName)
+project (jpp)
 
 #Split projects into folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(executable_name ExecutableName)
+set(executable_name jpp-tests)
 
 #TODO(vim): Find someway of making this global perhaps??
 set(folder_executable Executables)
