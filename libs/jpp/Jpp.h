@@ -10,6 +10,7 @@ Ideas List:
 #include <type_traits>
 #include <cstring>
 #include <algorithm>
+#include <cassert>
 
 namespace jpp {
 
@@ -85,7 +86,7 @@ namespace jpp {
 
         explicit val(std::nullptr_t)
             : val() {
-            
+
             CurrentType = type::NULLPTR;
         }
 
@@ -241,44 +242,7 @@ namespace jpp {
             return *this;
         }
 
-        template<typename T, std::enable_if_t<std::is_floating_point<T>::value, bool> = false>
-        auto GetValue() const {
-            return static_cast<T>(Value.GetNumber());
-        }
-
-        template<typename T, std::enable_if_t<std::is_integral<T>::value
-                                            && !std::is_same<T, bool>::value, bool> = false>
-        auto GetValue() const {
-            return static_cast<T>(Value.GetInteger());
-        }
-
-        template<typename T, std::enable_if_t<std::is_same<T, bool>::value, bool> = false>
-        auto GetValue() const {
-            return Value.GetBoolean();
-        }
-
-        template<typename T, std::enable_if_t<std::is_null_pointer<T>::value, bool> = false>
-        auto GetValue() const{
-            return Value.GetNull();
-        }
-
-        template<typename T, std::enable_if_t<std::is_same<T, str>::value, bool> = false>
-        auto GetValue() const {
-            return Value.GetOther<char>();
-        }
-
-        template<typename T, std::enable_if_t<
-                !std::is_floating_point<T>::value
-                && !std::is_integral<T>::value
-                && !std::is_same<T, bool>::value
-                && !std::is_null_pointer<T>::value
-                && !std::is_same<T, str>::value
-                , bool> = true>
-        auto GetValue() const {
-            return Value.GetOther<T>();
-        }
-
-        auto GetRawValue() const {
+        const val& GetRawValue() const {
             return Value;
         }
 
@@ -289,11 +253,110 @@ namespace jpp {
         static const field empty_field;
     };
 
+    template<typename T, std::enable_if_t<std::is_floating_point<T>::value, bool> = false>
+    auto Get(const field& f) {
+        auto& Value = f.GetRawValue();
+        
+        auto CurrentType = Value.GetCurrentType();
+
+        if (CurrentType == val::type::NONE)
+            assert(false && "field not found or contains an empty value");
+        
+        if(CurrentType != val::type::NUMBER)
+            assert(false && "Type Empty or not a floating point");
+
+        return static_cast<T>(Value.GetNumber());
+    }
+
+    template<typename T, std::enable_if_t<std::is_integral<T>::value
+                                        && !std::is_same<T, bool>::value, bool> = false>
+    auto Get(const field& f) {
+        auto& Value = f.GetRawValue();
+
+        auto CurrentType = Value.GetCurrentType();
+
+        if (CurrentType == val::type::NONE)
+            assert(false && "field not found or contains an empty value");
+        
+        if(CurrentType != val::type::INT)
+            assert(false && "Type Empty or not an integral");
+
+        return static_cast<T>(Value.GetInteger());
+    }
+
+    template<typename T, std::enable_if_t<std::is_same<T, bool>::value, bool> = false>
+    auto Get(const field& f) {
+        auto& Value = f.GetRawValue();
+
+        auto CurrentType = Value.GetCurrentType();
+
+        if (CurrentType == val::type::NONE)
+            assert(false && "field not found or contains an empty value");
+        
+        if(CurrentType != val::type::BOOL)
+            assert(false && "Type Empty or not a boolean");
+
+        return Value.GetBoolean();
+    }
+
+    template<typename T, std::enable_if_t<std::is_null_pointer<T>::value, bool> = false>
+    auto Get(const field& f){
+        auto& Value = f.GetRawValue();
+
+        auto CurrentType = Value.GetCurrentType();
+        
+        if (CurrentType == val::type::NONE)
+            assert(false && "field not found or contains an empty value");
+        
+        if(CurrentType != val::type::NULLPTR)
+            assert(false && "Type Empty or not a null value");
+
+        return Value.GetNull();
+    }
+
+    template<typename T, std::enable_if_t<std::is_same<T, str>::value, bool> = false>
+    auto Get(const field& f) {
+        auto& Value = f.GetRawValue();
+
+        auto CurrentType = Value.GetCurrentType();
+
+        if (CurrentType == val::type::NONE)
+            assert(false && "field not found or contains an empty value");
+        
+        if(CurrentType != val::type::STRING)
+            assert(false && "Not found or not a string");
+
+        return Value.GetOther<char>();
+    }
+
+    //TODO(vim): is_fundamental ...????
+    template<typename T, std::enable_if_t<
+            !std::is_floating_point<T>::value
+            && !std::is_integral<T>::value
+            && !std::is_null_pointer<T>::value
+            && !std::is_same<T, str>::value
+            , bool> = true>
+    auto Get(const field& f) {
+        auto& Value = f.GetRawValue();
+        
+        auto CurrentType = Value.GetCurrentType();
+
+        if (CurrentType == val::type::NONE)
+            assert(false && "field not found or contains an empty value");
+        
+        if(CurrentType != val::type::OTHER)
+            assert(false && "Not found or not a non-fundamental type");
+
+        return Value.GetOther<T>();
+    }
+
     const field field::empty_field{""};
 
     class obj {
         std::vector<field> Fields;
     public:
+        //TODO(vim): Unique fields
+        //TODO(vim):  Move shit, prevent copying
         obj(std::initializer_list<field> list)
             : Fields(list)
         {}
