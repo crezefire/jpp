@@ -36,6 +36,8 @@ build/
 
 *~
 !cmake/.vscode/
-build/
+
 !.travis.yml
+!appveyor.yml
+
 
