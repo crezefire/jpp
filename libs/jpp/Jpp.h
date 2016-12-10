@@ -183,7 +183,6 @@ namespace jpp {
         return val{data};
     }
 
-    //template<typename T, std::enable_if_t<std::is_null_pointer<T>::value>* = nullptr>
     auto make_val(std::nullptr_t) {
         return val{nullptr};
     }
