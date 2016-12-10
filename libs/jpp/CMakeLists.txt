@@ -1,4 +1,4 @@
-set(curr_lib_name header-only)
+set(curr_lib_name jpp)
 
 set(currsources
 	libs/jpp/Jpp.h
