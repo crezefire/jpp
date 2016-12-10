@@ -224,7 +224,7 @@ namespace jpp {
         }
 
         field& operator=(const char* rhs) {
-            Value = val{rhs, std::strlen(rhs)};
+            Value = val{rhs, std::strlen(rhs) + 1};
             return *this;
         }
 
