@@ -1,0 +1,28 @@
+//string, double, long long int, bool, null, arrays
+//object => object, object => array of anything, array => objects
+{
+    "string"    : "this is a string",
+    "double"    : 3.14159265,
+    "integer"   : 12345,
+    "boolean"   : true,
+    "null"      : null,
+    "array-str" : ["var1", "var2", "var3"],
+    "object"    : {
+        "sub-object" : {
+            "sub-sub-object" : 666
+        },
+        "sub-object-str" : "hello" 
+    },
+    "array-any" : [1, true, null, "valid", 2.222],
+    "array-objects" : [
+        {
+            "obj1" : true
+        },
+        {
+            "obj2" : null
+        },
+        {
+            "obj3" : "hahaha"
+        }
+    ]
+}
