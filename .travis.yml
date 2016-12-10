@@ -18,7 +18,7 @@ script:
 - pushd build
 - $CMAKEDIR -DUSE_CLANG=0 -DCMAKE_BUILD_TYPE="Release" -G "Unix Makefiles" ..
 - make
- - if [[ $? -ne 1 ]]; then exit 1; fi
+- if [[ $? -ne 1 ]]; then exit 1; fi
 - popd build
 
 - rm -rf build
@@ -26,6 +26,6 @@ script:
 
 - pushd build
 - $CMAKEDIR -DUSE_CLANG=1 -DCMAKE_BUILD_TYPE="Release" -G "Unix Makefiles" ..
-- make all
+- make
 -  if [[ $? -ne 1 ]]; then exit 1; fi
 - popd build
