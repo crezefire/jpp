@@ -18,7 +18,7 @@ script:
 - cd build/
 - $CMAKEDIR -DUSE_CLANG=0 -DCMAKE_BUILD_TYPE="Release" -G "Unix Makefiles" ..
 - make
-- if [[ $? -ne 1 ]]; then exit 1; fi
+- if [[ $? -ne 0 ]]; then exit 1; fi
 - cd ..
 
 - rm -rf build
@@ -27,5 +27,5 @@ script:
 - cd build/
 - $CMAKEDIR -DUSE_CLANG=1 -DCMAKE_BUILD_TYPE="Release" -G "Unix Makefiles" ..
 - make
--  if [[ $? -ne 1 ]]; then exit 1; fi
+-  if [[ $? -ne 0 ]]; then exit 1; fi
 - cd ..
