@@ -23,6 +23,7 @@ if (WIN32)
 	set(CMAKE_CXX_FLAGS_RELEASE ${REMOVE_FLAG_R})
 elseif(UNIX)
 	include(../../cmake/LinCompilerFlags.txt)
+	find_package (Threads REQUIRED)
 endif()
 
 #TODO(vim): Check this is the same on Linux
@@ -44,6 +45,10 @@ include_directories(
 
 #Add SHARED for .so / dll
 add_library(${curr_lib_name} ${currsources})
+
+if (UNIX)
+	target_link_libraries (${curr_lib_name} ${CMAKE_THREAD_LIBS_INIT})
+endif()
 
 set_property(TARGET ${curr_lib_name} PROPERTY FOLDER ${folder_libraries})
 
