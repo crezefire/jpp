@@ -34,8 +34,8 @@ int main() {
   a1 += 1.0f;
   a2++;
   a3 ^= a3;
-  a4->x;
-  a5 = nullptr;
+  a4->x++;
+  a4 = a5;
 
 
   return 0;
