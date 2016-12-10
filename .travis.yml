@@ -5,7 +5,7 @@ install:
 - tar -xzf cmake-3.7.1-Linux-x86_64.tar.gz
 - pwd
 - echo $TRAVIS_BUILD_DIR
-- export CMAKEDIR=$TRAVIS_BUILD_DIR/../cmake-3.7.1-Linux-x86_64/bin/cmake
+- export CMAKEDIR=$TRAVIS_BUILD_DIR/cmake-3.7.1-Linux-x86_64/bin/cmake
 
 script:
 - pwd
