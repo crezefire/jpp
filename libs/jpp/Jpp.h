@@ -165,21 +165,23 @@ namespace jpp {
         std::size_t CurrentSize { 0 };
     };
 
-    template<typename T, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
+    template<typename T, std::enable_if_t<std::is_floating_point<T>::value, bool> = false>
     auto make_val(const T& data) {
         return val{static_cast<long double>(data)};
     }
 
-    template<typename T, std::enable_if_t<std::is_integral<T>::value>* = nullptr>
+    template<typename T, std::enable_if_t<std::is_integral<T>::value
+                                          && !std::is_same<T,bool>::value, bool> = false>
     auto make_val(const T& data) {
         return val{static_cast<unsigned long long>(data)};
     }
 
-    template<typename T, std::enable_if_t<std::is_same<T, bool>::value> = true>
+    template<typename T, std::enable_if_t<std::is_same<T, bool>::value, bool> = false>
     auto make_val(const T& data) {
-        return val{static_cast<bool>(data)};
+        return val{data};
     }
 
+    //template<typename T, std::enable_if_t<std::is_null_pointer<T>::value>* = nullptr>
     auto make_val(std::nullptr_t) {
         return val{nullptr};
     }
@@ -188,12 +190,14 @@ namespace jpp {
         !std::is_floating_point<T>::value
         && !std::is_integral<T>::value
         && !std::is_same<T, bool>::value
-    >* = nullptr>
+        && !std::is_null_pointer<T>::value
+        , bool> = true>
     val make_val(const T& data) {
         return val{reinterpret_cast<const void*>(std::addressof(data)), sizeof(T)};
     }
 
     struct str{};
+    using null = std::nullptr_t;
 
     class field {
         std::string Name;
@@ -236,27 +240,28 @@ namespace jpp {
             return *this;
         }
 
-        template<typename T, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
+        template<typename T, std::enable_if_t<std::is_floating_point<T>::value, bool> = false>
         auto GetValue() const {
             return static_cast<T>(Value.GetNumber());
         }
 
-        template<typename T, std::enable_if_t<std::is_integral<T>::value>* = nullptr>
+        template<typename T, std::enable_if_t<std::is_integral<T>::value
+                                            && !std::is_same<T, bool>::value, bool> = false>
         auto GetValue() const {
             return static_cast<T>(Value.GetInteger());
         }
 
-        template<typename T, std::enable_if_t<std::is_same<T, bool>::value> = true>
+        template<typename T, std::enable_if_t<std::is_same<T, bool>::value, bool> = false>
         auto GetValue() const {
             return Value.GetBoolean();
         }
 
-        template<typename T, std::enable_if_t<std::is_null_pointer<T>::value>* = nullptr>
+        template<typename T, std::enable_if_t<std::is_null_pointer<T>::value, bool> = false>
         auto GetValue() const{
             return Value.GetNull();
         }
 
-        template<typename T, std::enable_if_t<std::is_same<T, str>::value>* = nullptr>
+        template<typename T, std::enable_if_t<std::is_same<T, str>::value, bool> = false>
         auto GetValue() const {
             return Value.GetOther<char>();
         }
@@ -267,7 +272,7 @@ namespace jpp {
                 && !std::is_same<T, bool>::value
                 && !std::is_null_pointer<T>::value
                 && !std::is_same<T, str>::value
-            >* = nullptr>
+                , bool> = true>
         auto GetValue() const {
             return Value.GetOther<T>();
         }
@@ -318,7 +323,7 @@ namespace jpp {
 
     inline namespace literals {
 
-        field operator""_f (const char* f, std::size_t length) {
+        field operator""_f (const char* f, std::size_t) {
                 return { f };
         }
     }

@@ -28,7 +28,15 @@ int main() {
   auto a2 = asdf["integer"].GetValue<int>();
   auto a3 = asdf["boolean"].GetValue<bool>();
   auto a4 = asdf["fuckall"].GetValue<foo>();
-  auto a5 = asdf["nothing"].GetValue<std::nullptr_t>();
+  auto a5 = asdf["nothing"].GetValue<jpp::null>();
+
+  a0++;
+  a1 += 1.0f;
+  a2++;
+  a3 ^= a3;
+  a4->x;
+  a5 = nullptr;
+
 
   return 0;
 }
