@@ -2,14 +2,14 @@ language: cpp
 compiler:
   - gcc
 install:
-- if [ "$CXX" = "g++" ]; then export CXX="g++-6.2" CC="gcc-6.2"; fi
+- if [ "$CXX" = "g++" ]; then export CXX="g++-6" CC="gcc-6"; fi
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-    - gcc-6.2
-    - g++-6.2
+    - gcc-6
+    - g++-6
 
 install:
 - wget --no-check-certificate https://cmake.org/files/v3.7/cmake-3.7.1-Linux-x86_64.tar.gz
