@@ -3,6 +3,8 @@
 Write JSON like code in C++ and access it like a JSON document
 
 [![Build Status](https://travis-ci.org/crezefire/jpp.svg?branch=master)](https://travis-ci.org/crezefire/jpp)
+ 
+[![Build status](https://ci.appveyor.com/api/projects/status/pbtyp3c8hte6739i?svg=true)](https://ci.appveyor.com/project/crezefire/jpp)
 
 ##Table of Contents
 - [Overview](#overview)
