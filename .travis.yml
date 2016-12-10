@@ -15,12 +15,14 @@ install:
 - wget --no-check-certificate https://cmake.org/files/v3.7/cmake-3.7.1-Linux-x86_64.tar.gz
 - tar -xzf cmake-3.7.1-Linux-x86_64.tar.gz
 - export CMAKEDIR=$TRAVIS_BUILD_DIR/cmake-3.7.1-Linux-x86_64/bin/cmake
+- export CXX=g++6
+- export CC=gcc-6
 
 script:
 - mkdir build
 
 - cd build/
-- $CMAKEDIR -DUSE_CLANG=0 -DCMAKE_BUILD_TYPE="Release" -G "Unix Makefiles" ..
+- $CMAKEDIR CMAKE_CXX_COMPILER=g++6 -DUSE_CLANG=0 -DCMAKE_BUILD_TYPE="Release" -G "Unix Makefiles" ..
 - make
 - if [[ $? -ne 0 ]]; then exit 1; fi
 - cd ..
