@@ -33,7 +33,8 @@ namespace jpp {
         };
 
         val(const val& rhs)
-            : CurrentType (rhs.CurrentType),
+            : _number(rhs._number),
+            CurrentType (rhs.CurrentType),
             CurrentSize (rhs.CurrentSize) {
             
             copy(rhs.CurrentType, rhs._other, rhs.CurrentSize);
@@ -89,6 +90,7 @@ namespace jpp {
         }
 
         val& operator=(const val& rhs) {
+            _number = rhs._number;
             CurrentType = rhs.CurrentType;
             CurrentSize = rhs.CurrentSize;
 
