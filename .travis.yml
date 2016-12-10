@@ -1,20 +1,24 @@
 language: cpp
 
+addons:
+  apt:
+    packages:
+      - g++-6
+    sources: &sources
+      - ubuntu-toolchain-r-test
+
 install:
 - wget --no-check-certificate https://cmake.org/files/v3.7/cmake-3.7.1-Linux-x86_64.tar.gz
 - tar -xzf cmake-3.7.1-Linux-x86_64.tar.gz
-- pwd
-- echo $TRAVIS_BUILD_DIR
 - export CMAKEDIR=$TRAVIS_BUILD_DIR/cmake-3.7.1-Linux-x86_64/bin/cmake
 
 script:
-- pwd
-- echo $TRAVIS_BUILD_DIR
 - mkdir build
 
 - pushd build
 - $CMAKEDIR -DUSE_CLANG=0 -DCMAKE_BUILD_TYPE="Release" -G "Unix Makefiles" ..
-- make
+- make all
+ - if [[ $? -ne 1 ]]; then exit 1; fi
 - popd build
 
 - rm -rf build
@@ -22,5 +26,6 @@ script:
 
 - pushd build
 - $CMAKEDIR -DUSE_CLANG=1 -DCMAKE_BUILD_TYPE="Release" -G "Unix Makefiles" ..
-- make
+- make all
+-  if [[ $? -ne 1 ]]; then exit 1; fi
 - popd build
