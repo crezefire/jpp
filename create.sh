@@ -121,14 +121,16 @@ else
     cmake $CMAKE_PARAMS -G "$CMAKE_GENERATOR" ..
 fi
 
+exit_code=0
+
 #Check return code of CMake Process
 if [ $? == 0 ]; then
 	echo "==========>SUCCESS"
 else
 	echo "============>FAILED"
+	exit_code=1
 fi
 
 popd
 
-#TODO(vim): Should return -1 on failure
-exit 0
+exit $exit_code
