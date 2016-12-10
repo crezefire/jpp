@@ -5,6 +5,7 @@ build/
 .vscode/
 
 !*.cpp
+!*.cc
 !*.h
 !*.hpp
 !*.inl
@@ -39,5 +40,9 @@ build/
 
 !.travis.yml
 !appveyor.yml
+
+#googletest
+!.pump
+
 
 
