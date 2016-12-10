@@ -1,0 +1,7 @@
+language: cpp
+install: true
+script:
+- ./create.sh
+- pushd build
+- make
+- popd build
