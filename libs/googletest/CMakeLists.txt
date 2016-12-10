@@ -18,6 +18,9 @@ if (WIN32)
 	
 	string(REPLACE "/Za" "" REMOVE_FLAG ${CMAKE_CXX_FLAGS})
 	set(CMAKE_CXX_FLAGS ${REMOVE_FLAG})
+	
+	string(REPLACE "/GL" "" REMOVE_FLAG_R ${CMAKE_CXX_FLAGS_RELEASE})
+	set(CMAKE_CXX_FLAGS_RELEASE ${REMOVE_FLAG_R})
 elseif(UNIX)
 	include(../../cmake/LinCompilerFlags.txt)
 endif()
