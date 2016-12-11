@@ -12,7 +12,67 @@ Write (almost) JSON in C++, using any types and access it like a JSON document.
 - [Submitting Issues](#submitting-issues)
 
 ##Overview
-More to come....
+ The following JSON:
+ 
+ ```JSON
+ {
+    "string"    : "this is a string",
+    "double"    : 3.14159265,
+    "integer"   : 12345,
+    "boolean"   : true,
+    "null"      : null,
+    "array-str" : ["var1", "var2", "var3"],
+    "object"    : {
+        "sub-object" : {
+            "sub-sub-object" : 666
+        },
+        "sub-object-str" : "hello" 
+    },
+    "array-any" : [1, true, null, "valid", 2.222],
+    "array-objects" : [
+        {
+            "obj1" : true
+        },
+        {
+            "obj2" : null
+        },
+        {
+            "obj3" : "hahaha"
+        }
+    ]
+}
+ ```
+ 
+ Could be wrriten as such in C++ (Syntax subject to change):
+ 
+ ```cpp
+ {
+    "string"_f    = "this is a string",
+    "double"_f    = 3.14159265,
+    "integer"_f   = 12345,
+    "boolean"_f   = true,
+    "null"_f      = nullptr,
+    "array-str"_f = ["var1", "var2", "var3"],
+    "object"_f    = {
+        "sub-object"_f = {
+            "sub-sub-object"_f = 666
+        },
+        "sub-object-str"_f = "hello" 
+    },
+    "array-any"_f = [1, true, nullptr, "valid", 2.222],
+    "array-objects"_f = [
+        {
+            "obj1"_f = true
+        },
+        {
+            "obj2"_f = null
+        },
+        {
+            "obj3"_f = "hahaha"
+        }
+    ]
+}
+ ```
 
 ##Requirements
 Common:
