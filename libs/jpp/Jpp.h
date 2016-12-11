@@ -18,12 +18,12 @@ namespace jpp {
     public:
         enum class type {
             NONE = 0,
-            BOOL = sizeof(bool),
-            NULLPTR = 2,
-            INT = sizeof(unsigned long long),
-            NUMBER  = sizeof(long double),
-            STRING = 32,
-            OTHER = 64,
+            BOOL,
+            NULLPTR,
+            INT,
+            NUMBER,
+            STRING,
+            OTHER,
         };
 
         val() = default;
