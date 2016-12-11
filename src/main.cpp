@@ -305,4 +305,18 @@ TEST(WrongTypeAccessJppObject, Null) {
     EXPECT_DEATH(jpp::Get<bool>(temp["null0"]), "boolean");
 }
 
-//TODO(vim): empty value
+
+TEST(NullAccessJppObject, All) {
+
+    struct dummy {};
+
+    jpp::obj temp{
+    };
+
+    EXPECT_DEATH(jpp::Get<int>(temp["string0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<bool>(temp["string0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<float>(temp["string0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<jpp::str>(temp["string0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<jpp::null>(temp["string0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<dummy>(temp["string0"]), "not.*found.*empty");
+}
