@@ -2,9 +2,7 @@
 
 Write (almost) JSON in C++, using any types and access it like a JSON document.
 
-[![Build Status](https://travis-ci.org/crezefire/jpp.svg?branch=master)](https://travis-ci.org/crezefire/jpp)
- 
-[![Build status](https://ci.appveyor.com/api/projects/status/pbtyp3c8hte6739i?svg=true)](https://ci.appveyor.com/project/crezefire/jpp)
+[![Build Status](https://travis-ci.org/crezefire/jpp.svg?branch=master)](https://travis-ci.org/crezefire/jpp) [![Build status](https://ci.appveyor.com/api/projects/status/3mjmih723iqtgpc5?svg=true)](https://ci.appveyor.com/project/crezefire/jpp)
 
 ##Table of Contents
 - [Overview](#overview)
