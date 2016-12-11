@@ -1,6 +1,6 @@
 #JPP : JSON in C++
 
-Write JSON like code in C++ and access it like a JSON document
+Write (almost) JSON in C++, using any types and access it like a JSON document.
 
 [![Build Status](https://travis-ci.org/crezefire/jpp.svg?branch=master)](https://travis-ci.org/crezefire/jpp)
  
