@@ -12,10 +12,10 @@ Ideas List:
 #include <algorithm>
 
 #ifdef NDEBUG
-#include <cstdlib>
+#include <csignal>
 #include <cstdio>
 #define JPP_ASSERT(condition, message)  {std::fprintf(stderr, message);\
-                                        std::abort();}
+                                        std::raise(SIGABRT);}
 #else
 #include <cassert>
 #define JPP_ASSERT(condition, message)  assert(condition && message)
