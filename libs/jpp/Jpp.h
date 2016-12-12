@@ -10,7 +10,17 @@ Ideas List:
 #include <type_traits>
 #include <cstring>
 #include <algorithm>
+
+#ifdef NDEBUG
+#include <cstdlib>
+#include <cstdio>
+#define JPP_ASSERT(condition, message)  {std::fprintf(stderr, message);\
+                                        std::abort();}
+#else
 #include <cassert>
+#define JPP_ASSERT(condition, message)  assert(condition && message)
+#endif
+
 
 namespace jpp {
 
