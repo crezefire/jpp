@@ -52,15 +52,15 @@ Write (almost) JSON in C++, using any types and access it like a JSON document.
     "integer"_f   = 12345,
     "boolean"_f   = true,
     "null"_f      = nullptr,
-    "array-str"_f = ["var1", "var2", "var3"],
+    "array-str"_f = jpp::arr [jpp::beg, "var1", "var2", "var3"],
     "object"_f    = {
         "sub-object"_f = {
             "sub-sub-object"_f = 666
         },
         "sub-object-str"_f = "hello" 
     },
-    "array-any"_f = [1, true, nullptr, "valid", 2.222],
-    "array-objects"_f = [
+    "array-any"_f = jpp::arr [jpp::beg, 1, true, nullptr, "valid", 2.222],
+    "array-objects"_f = jpp::arr [jpp::beg,
         {
             "obj1"_f = true
         },
