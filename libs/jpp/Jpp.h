@@ -15,7 +15,7 @@ Ideas List:
 #include <csignal>
 #include <cstdio>
 #define JPP_ASSERT(condition, message)  {std::fprintf(stderr, message);\
-                                        std::raise(SIGABRT);}
+                                        std::terminate();}
 #else
 #include <cassert>
 #define JPP_ASSERT(condition, message)  assert(condition && message)
