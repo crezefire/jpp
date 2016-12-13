@@ -269,10 +269,10 @@ namespace jpp {
         auto CurrentType = Value.GetCurrentType();
 
         if (CurrentType == val::type::NONE)
-            assert(false && "field not found or contains an empty value");
+            JPP_ASSERT(false, "field not found or contains an empty value");
         
         if(CurrentType != val::type::NUMBER)
-            assert(false && "Type Empty or not a floating point");
+            JPP_ASSERT(false, "Type Empty or not a floating point");
 
         return static_cast<T>(Value.GetNumber());
     }
@@ -285,10 +285,10 @@ namespace jpp {
         auto CurrentType = Value.GetCurrentType();
 
         if (CurrentType == val::type::NONE)
-            assert(false && "field not found or contains an empty value");
+            JPP_ASSERT(false, "field not found or contains an empty value");
         
         if(CurrentType != val::type::INT)
-            assert(false && "Type Empty or not an integral");
+            JPP_ASSERT(false, "Type Empty or not an integral");
 
         return static_cast<T>(Value.GetInteger());
     }
@@ -300,10 +300,10 @@ namespace jpp {
         auto CurrentType = Value.GetCurrentType();
 
         if (CurrentType == val::type::NONE)
-            assert(false && "field not found or contains an empty value");
+            JPP_ASSERT(false, "field not found or contains an empty value");
         
         if(CurrentType != val::type::BOOL)
-            assert(false && "Type Empty or not a boolean");
+            JPP_ASSERT(false, "Type Empty or not a boolean");
 
         return Value.GetBoolean();
     }
@@ -315,10 +315,10 @@ namespace jpp {
         auto CurrentType = Value.GetCurrentType();
         
         if (CurrentType == val::type::NONE)
-            assert(false && "field not found or contains an empty value");
+            JPP_ASSERT(false, "field not found or contains an empty value");
         
         if(CurrentType != val::type::NULLPTR)
-            assert(false && "Type Empty or not a null value");
+            JPP_ASSERT(false, "Type Empty or not a null value");
 
         return Value.GetNull();
     }
@@ -330,10 +330,10 @@ namespace jpp {
         auto CurrentType = Value.GetCurrentType();
 
         if (CurrentType == val::type::NONE)
-            assert(false && "field not found or contains an empty value");
+            JPP_ASSERT(false, "field not found or contains an empty value");
         
         if(CurrentType != val::type::STRING)
-            assert(false && "Not found or not a string");
+            JPP_ASSERT(false, "Not found or not a string");
 
         return Value.GetOther<char>();
     }
@@ -351,10 +351,10 @@ namespace jpp {
         auto CurrentType = Value.GetCurrentType();
 
         if (CurrentType == val::type::NONE)
-            assert(false && "field not found or contains an empty value");
+            JPP_ASSERT(false, "field not found or contains an empty value");
         
         if(CurrentType != val::type::OTHER)
-            assert(false && "Not found or not a non-fundamental type");
+            JPP_ASSERT(false, "Not found or not a non-fundamental type");
 
         return Value.GetOther<T>();
     }
