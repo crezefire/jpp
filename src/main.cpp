@@ -223,11 +223,11 @@ TEST(WrongTypeAccessJppObject, String) {
         "string0"_f = "stringy0"
     };
 
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<int>(temp["string0"]), "integral");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<bool>(temp["string0"]), "boolean");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<float>(temp["string0"]), "floating");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<jpp::null>(temp["string0"]), "null");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<dummy>(temp["string0"]), "non-fundamental");
+    EXPECT_DEATH(jpp::Get<int>(temp["string0"]), "integral");
+    EXPECT_DEATH(jpp::Get<bool>(temp["string0"]), "boolean");
+    EXPECT_DEATH(jpp::Get<float>(temp["string0"]), "floating");
+    EXPECT_DEATH(jpp::Get<jpp::null>(temp["string0"]), "null");
+    EXPECT_DEATH(jpp::Get<dummy>(temp["string0"]), "non-fundamental");
 }
 
 TEST(WrongTypeAccessJppObject, Number) {
@@ -238,11 +238,11 @@ TEST(WrongTypeAccessJppObject, Number) {
         "double0"_f = 3.1415926500
     };
 
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<int>(temp["double0"]), "integral");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<bool>(temp["double0"]), "boolean");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<jpp::str>(temp["double0"]), "string");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<jpp::null>(temp["double0"]), "null");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<dummy>(temp["double0"]), "non-fundamental");
+    EXPECT_DEATH(jpp::Get<int>(temp["double0"]), "integral");
+    EXPECT_DEATH(jpp::Get<bool>(temp["double0"]), "boolean");
+    EXPECT_DEATH(jpp::Get<jpp::str>(temp["double0"]), "string");
+    EXPECT_DEATH(jpp::Get<jpp::null>(temp["double0"]), "null");
+    EXPECT_DEATH(jpp::Get<dummy>(temp["double0"]), "non-fundamental");
 }
 
 TEST(WrongTypeAccessJppObject, Integer) {
@@ -253,11 +253,11 @@ TEST(WrongTypeAccessJppObject, Integer) {
         "integer0"_f = 123456
     };
 
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<float>(temp["integer0"]), "floating");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<bool>(temp["integer0"]), "boolean");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<jpp::str>(temp["integer0"]), "string");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<jpp::null>(temp["integer0"]), "null");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<dummy>(temp["integer0"]), "non-fundamental");
+    EXPECT_DEATH(jpp::Get<float>(temp["integer0"]), "floating");
+    EXPECT_DEATH(jpp::Get<bool>(temp["integer0"]), "boolean");
+    EXPECT_DEATH(jpp::Get<jpp::str>(temp["integer0"]), "string");
+    EXPECT_DEATH(jpp::Get<jpp::null>(temp["integer0"]), "null");
+    EXPECT_DEATH(jpp::Get<dummy>(temp["integer0"]), "non-fundamental");
 }
 
 TEST(WrongTypeAccessJppObject, Boolean) {
@@ -268,11 +268,11 @@ TEST(WrongTypeAccessJppObject, Boolean) {
         "boolean0"_f = true
     };
 
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<float>(temp["boolean0"]), "floating");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<int>(temp["boolean0"]), "integral");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<jpp::str>(temp["boolean0"]), "string");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<jpp::null>(temp["boolean0"]), "null");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<dummy>(temp["boolean0"]), "non-fundamental");
+    EXPECT_DEATH(jpp::Get<float>(temp["boolean0"]), "floating");
+    EXPECT_DEATH(jpp::Get<int>(temp["boolean0"]), "integral");
+    EXPECT_DEATH(jpp::Get<jpp::str>(temp["boolean0"]), "string");
+    EXPECT_DEATH(jpp::Get<jpp::null>(temp["boolean0"]), "null");
+    EXPECT_DEATH(jpp::Get<dummy>(temp["boolean0"]), "non-fundamental");
 }
 
 TEST(WrongTypeAccessJppObject, Arbitrary) {
@@ -283,11 +283,11 @@ TEST(WrongTypeAccessJppObject, Arbitrary) {
         "struct0"_f = dummy{}
     };
 
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<float>(temp["struct0"]), "floating");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<int>(temp["struct0"]), "integral");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<jpp::str>(temp["struct0"]), "string");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<jpp::null>(temp["struct0"]), "null");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<bool>(temp["struct0"]), "boolean");
+    EXPECT_DEATH(jpp::Get<float>(temp["struct0"]), "floating");
+    EXPECT_DEATH(jpp::Get<int>(temp["struct0"]), "integral");
+    EXPECT_DEATH(jpp::Get<jpp::str>(temp["struct0"]), "string");
+    EXPECT_DEATH(jpp::Get<jpp::null>(temp["struct0"]), "null");
+    EXPECT_DEATH(jpp::Get<bool>(temp["struct0"]), "boolean");
 }
 
 TEST(WrongTypeAccessJppObject, Null) {
@@ -298,11 +298,11 @@ TEST(WrongTypeAccessJppObject, Null) {
         "null0"_f = nullptr
     };
 
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<float>(temp["null0"]), "floating");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<int>(temp["null0"]), "integral");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<jpp::str>(temp["null0"]), "string");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<dummy>(temp["null0"]), "non-fundamental");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<bool>(temp["null0"]), "boolean");
+    EXPECT_DEATH(jpp::Get<float>(temp["null0"]), "floating");
+    EXPECT_DEATH(jpp::Get<int>(temp["null0"]), "integral");
+    EXPECT_DEATH(jpp::Get<jpp::str>(temp["null0"]), "string");
+    EXPECT_DEATH(jpp::Get<dummy>(temp["null0"]), "non-fundamental");
+    EXPECT_DEATH(jpp::Get<bool>(temp["null0"]), "boolean");
 }
 
 
@@ -313,12 +313,12 @@ TEST(NullAccessJppObject, All) {
     jpp::obj temp{
     };
 
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<int>(temp["string0"]), "not.*found.*empty");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<bool>(temp["string0"]), "not.*found.*empty");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<float>(temp["string0"]), "not.*found.*empty");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<jpp::str>(temp["string0"]), "not.*found.*empty");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<jpp::null>(temp["string0"]), "not.*found.*empty");
-    EXPECT_DEATH_IF_SUPPORTED(jpp::Get<dummy>(temp["string0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<int>(temp["string0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<bool>(temp["string0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<float>(temp["string0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<jpp::str>(temp["string0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<jpp::null>(temp["string0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<dummy>(temp["string0"]), "not.*found.*empty");
 }
 
 
