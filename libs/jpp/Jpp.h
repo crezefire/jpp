@@ -1,8 +1,3 @@
-/*
-Ideas List:
-- General objects packing / transferring
-- Type injection through member overload
-*/
 #pragma once
 
 #include <string>
@@ -133,8 +128,6 @@ namespace jpp {
             return t == CurrentType;
         }
 
-        //TODO(vim): std::optional ???
-        // Error if wrong type
         auto GetInteger() const {
             return _integer;
         }
@@ -170,6 +163,8 @@ namespace jpp {
             unsigned long long _integer = 0; // 8
             long double _number;             // 16
             bool _boolean;                   // 1
+
+            //TODO(vim): Short opts for custom small types
             void* _other;                    // word (8)   
         };
 
@@ -210,9 +205,34 @@ namespace jpp {
     struct str{};
     using null = std::nullptr_t;
 
+    struct proxy {
+        std::vector<val> Values;
+
+        template<typename T>
+        proxy& operator,(const T& rhs) {
+            Values.emplace_back(make_val(rhs));
+            return *this;
+        }
+    };
+
+    struct arr_t {
+        std::vector<val> Values;
+
+        arr_t& operator[](proxy& rhs) {
+            Values.clear();
+            Values = std::move(rhs.Values);
+            return *this;
+        }
+    };
+
+    static arr_t arr;
+    static proxy beg;
+
     class field {
         std::string Name;
         val Value;
+        bool IsArray { false };
+        std::vector<val> Values;
     public:
         field(std::string name)
             : Name(std::move(name))
@@ -220,17 +240,33 @@ namespace jpp {
 
         field(field&& rhs)
             :  Name(std::move(rhs.Name)),
-            Value(std::move(rhs.Value))
+            Value(std::move(rhs.Value)),
+            Values(std::move(rhs.Values)),
+            IsArray(rhs.IsArray)
         {}
 
         field(const field& rhs)
             : Name (rhs.Name),
-            Value(rhs.Value)
+            Value(rhs.Value),
+            Values(rhs.Values),
+            IsArray(rhs.IsArray)
         {}
 
         template<typename T>
         field& operator=(const T& rhs) {
             Value = make_val(rhs);
+            return *this;
+        }
+
+        field& operator=(arr_t&& rhs) {
+            Values = std::move(rhs.Values);
+            IsArray = true;
+            return *this;
+        }
+
+        field& operator=(arr_t& rhs) {
+            Values = std::move(rhs.Values);
+            IsArray = true;
             return *this;
         }
 
@@ -251,12 +287,20 @@ namespace jpp {
             return *this;
         }
 
-        const val& GetRawValue() const {
-            return Value;
+        decltype(auto) GetRawValue() const {
+            return (Value);
         }
 
         decltype(auto) GetName() const {
-            return Name;
+            return (Name);
+        }
+
+        decltype(auto) GetRawValues() const {
+            return (Values);
+        }
+
+        auto GetIsArray() const {
+            return IsArray;
         }
 
         static const field empty_field;
@@ -329,6 +373,7 @@ namespace jpp {
 
         auto CurrentType = Value.GetCurrentType();
 
+        //TODO(vim): Add call for this check and then check inliner
         if (CurrentType == val::type::NONE)
             JPP_ASSERT(false, "field not found or contains an empty value");
         
@@ -338,12 +383,22 @@ namespace jpp {
         return Value.GetOther<char>();
     }
 
+
+    template<typename T, std::enable_if_t<std::is_same<T, arr_t>::value, bool> = false>
+    decltype(auto) Get(const field& f) {
+        auto& Values = f.GetRawValues();
+
+        if (!f.GetIsArray())
+            JPP_ASSERT(false, "Not an array value");
+
+        return (Values);
+    }
+
     //TODO(vim): is_fundamental ...????
     template<typename T, std::enable_if_t<
-            !std::is_floating_point<T>::value
-            && !std::is_integral<T>::value
-            && !std::is_null_pointer<T>::value
+            !std::is_fundamental<T>::value
             && !std::is_same<T, str>::value
+            && !std::is_same<T, arr_t>::value
             , bool> = true>
     auto Get(const field& f) {
         auto& Value = f.GetRawValue();
@@ -388,10 +443,6 @@ namespace jpp {
 
             return field::empty_field;
         }
-    };
-
-    class arr {
-
     };
 
     inline namespace literals {

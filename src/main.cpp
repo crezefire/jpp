@@ -322,6 +322,78 @@ TEST(NullAccessJppObject, All) {
 }
 
 
+//***********************************
+// Tests for using and access arrays
+//***********************************
+
+TEST(Array, Homogenous) {
+    jpp::obj temp{
+        "array0"_f = jpp::arr[jpp::beg, 1, 2, 3, 4, 5],
+        "array1"_f = jpp::arr[jpp::beg, false, true, false, false, true]
+    };
+
+    //TODO(vim): Fix type arr_t, can't expect users to use it
+    auto& a0 = jpp::Get<jpp::arr_t>(temp["array0"]);
+    
+    //TODO(vim): Fix facade it's fucking horrible
+    // Mayble implicitly conver to field??
+    EXPECT_EQ(a0[0].GetInteger(), 1);
+    EXPECT_EQ(a0[1].GetInteger(), 2);
+    EXPECT_EQ(a0[2].GetInteger(), 3);
+    EXPECT_EQ(a0[3].GetInteger(), 4);
+    EXPECT_EQ(a0[4].GetInteger(), 5);
+
+    auto& a1 = jpp::Get<jpp::arr_t>(temp["array1"]);
+
+    EXPECT_EQ(a1[0].GetBoolean(), false);
+    EXPECT_EQ(a1[1].GetBoolean(), true);
+    EXPECT_EQ(a1[2].GetBoolean(), false);
+    EXPECT_EQ(a1[3].GetBoolean(), false);
+    EXPECT_EQ(a1[4].GetBoolean(), true);
+}
+
+TEST(Array, Heterogenous) {
+    jpp::obj temp{
+        "array0"_f = jpp::arr[jpp::beg,"asdf", 1.0f, 12, true, nullptr]
+    };
+
+    auto& a0 = jpp::Get<jpp::arr_t>(temp["array0"]);
+    
+    EXPECT_STREQ(a0[0].GetOther<char>(), "asdf");
+    EXPECT_EQ(a0[1].GetNumber(), 1.0f);
+    EXPECT_EQ(a0[2].GetInteger(), 12);
+    EXPECT_EQ(a0[3].GetBoolean(), true);
+    EXPECT_EQ(a0[4].GetNull(), nullptr);
+
+}
+
+TEST(Array, Empty) {
+
+    jpp::obj temp{
+        "array0"_f = jpp::arr[jpp::beg]
+    };
+
+    auto& a0 = jpp::Get<jpp::arr_t>(temp["array0"]);
+
+    EXPECT_EQ(a0.empty(), true);
+}
+
+TEST(Array, WrongAccess) {
+
+    struct dummy {};
+    
+    jpp::obj temp{
+        "array0"_f = jpp::arr[jpp::beg]
+    };
+
+    EXPECT_DEATH(jpp::Get<int>(temp["array0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<bool>(temp["array0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<float>(temp["array0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<jpp::str>(temp["array0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<jpp::null>(temp["array0"]), "not.*found.*empty");
+    EXPECT_DEATH(jpp::Get<dummy>(temp["array0"]), "not.*found.*empty");
+}
+
 TEST(ExampleTest, TestJSON) {
 
     jpp::obj temp {
@@ -329,6 +401,9 @@ TEST(ExampleTest, TestJSON) {
         "double"_f = 3.14159265,
         "integer"_f  = 12345,
         "boolean"_f = true,
-        "null"_f = nullptr
+        "null"_f = nullptr,
+        "array"_f = jpp::arr[jpp::beg,"asdf", 1.0f, 12, false, nullptr]
     };
+
+    ASSERT_EQ(0, 0);
 }
