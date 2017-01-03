@@ -337,11 +337,11 @@ TEST(Array, Homogenous) {
     
     //TODO(vim): Fix facade it's fucking horrible
     // Mayble implicitly conver to field??
-    EXPECT_EQ(a0[0].GetInteger(), 1);
-    EXPECT_EQ(a0[1].GetInteger(), 2);
-    EXPECT_EQ(a0[2].GetInteger(), 3);
-    EXPECT_EQ(a0[3].GetInteger(), 4);
-    EXPECT_EQ(a0[4].GetInteger(), 5);
+    EXPECT_EQ(static_cast<int>(a0[0].GetInteger()), 1);
+    EXPECT_EQ(static_cast<int>(a0[1].GetInteger()), 2);
+    EXPECT_EQ(static_cast<int>(a0[2].GetInteger()), 3);
+    EXPECT_EQ(static_cast<int>(a0[3].GetInteger()), 4);
+    EXPECT_EQ(static_cast<int>(a0[4].GetInteger()), 5);
 
     auto& a1 = jpp::Get<jpp::arr_t>(temp["array1"]);
 
@@ -361,7 +361,7 @@ TEST(Array, Heterogenous) {
     
     EXPECT_STREQ(a0[0].GetOther<char>(), "asdf");
     EXPECT_EQ(a0[1].GetNumber(), 1.0f);
-    EXPECT_EQ(a0[2].GetInteger(), 12);
+    EXPECT_EQ(static_cast<int>(a0[2].GetInteger()), 12);
     EXPECT_EQ(a0[3].GetBoolean(), true);
     EXPECT_EQ(a0[4].GetNull(), nullptr);
 

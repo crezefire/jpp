@@ -241,15 +241,15 @@ namespace jpp {
         field(field&& rhs)
             :  Name(std::move(rhs.Name)),
             Value(std::move(rhs.Value)),
-            Values(std::move(rhs.Values)),
-            IsArray(rhs.IsArray)
+            IsArray(rhs.IsArray),
+            Values(std::move(rhs.Values))
         {}
 
         field(const field& rhs)
             : Name (rhs.Name),
             Value(rhs.Value),
-            Values(rhs.Values),
-            IsArray(rhs.IsArray)
+            IsArray(rhs.IsArray),
+            Values(rhs.Values)
         {}
 
         template<typename T>
