@@ -1,17 +1,17 @@
-#JPP : JSON in C++
+# JPP : JSON in C++
 
 Write (almost) JSON in C++, using any types and access it like a JSON document.
 
 [![Build Status](https://travis-ci.org/crezefire/jpp.svg?branch=master)](https://travis-ci.org/crezefire/jpp) [![Build status](https://ci.appveyor.com/api/projects/status/3mjmih723iqtgpc5?svg=true)](https://ci.appveyor.com/project/crezefire/jpp)
 
-##Table of Contents
+## Table of Contents
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Getting Started](#getting-started)
 - [Planned Features](https://github.com/crezefire/jpp/projects/1)
 - [Submitting Issues](#submitting-issues)
 
-##Overview
+## Overview
  The following JSON:
  
  ```JSON
@@ -74,7 +74,7 @@ Write (almost) JSON in C++, using any types and access it like a JSON document.
 }
  ```
 
-##Requirements
+## Requirements
 Common:
 - [CMake](https://cmake.org/download/) >= 3.4
 - bash (On Windows use MinGW installed via [Git for Windows](https://git-scm.com/downloads))
@@ -87,7 +87,7 @@ Linux:
 - [Visual Studio Code](https://code.visualstudio.com/download) (Optional, Requires GCC + GDB)
 - [VSCode C++ Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) (Optional, Required with VSCode)
 
-##Getting Started
+## Getting Started
 To build the project as is run:
 
 ```shell
@@ -106,7 +106,7 @@ Linux only:
 
 Note: Using Clang will still show CMake as setting up GCC but it will definitely be using Clang
 
-##Submitting Issues
+## Submitting Issues
 If you have any feature requests, suggestions or bugs please submit them to the [Issues](https://github.com/crezefire/cxp/issues) page where they will be tracked and updated.
 
 If requesting a feature remember to:
